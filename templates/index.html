@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能聊天机器人</title>
+    <!-- 移除内部<style>标签，改为引用外部CSS文件 -->
+    <link rel="stylesheet" href="styles.css"> <!-- 确保与实际CSS文件名一致 -->
+</head>
+
+<body>
+    <div id="chat-container">
+        <!-- 头部 -->
+        <div id="header">
+            <h2>智能聊天机器人</h2>
+            <div id="config-info"></div>
+        </div>
+        <!-- 聊天框 -->
+        <div id="messages">
+            <div class="msg bot">
+                <div clss="msg-content">
+                    <div class="sender">AI助手</div>
+                    你好！我是智能聊天机器人，有什么可以帮助你的吗？
+                </div>
+
+            </div>
+        </div>
+        <!-- 输入区域 -->
+        <div id="input-area">
+            <label for="user-input"></label>
+            <!-- 输入框最大长度为1000字符 -->
+            <input type="text" id="user-input" placeholder="请输入你的问题..." maxlength="1000" />
+            <div class="button-group">
+                <!-- 发送按钮绑定sendMessage()函数 -->
+                <button id="send-btn" onclick="sendMessage()">发送</button>
+                <!-- 清空按钮绑定clearChat()函数 -->
+                <button id="clear-btn" onclick="clearChat()">清空</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -93,11 +93,20 @@ body {
     position: relative;
 }
 
-.user {
+/* AI助手的消息样式 */
+.bot .msg-content{
+    background: white;
+    color: #333;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 用户的消息样式 */
+.user .msg-content{
     /* 用户信息靠右对齐 */
-    background-color: #42a5f5;
+    background: linear-gradient(135deg,#007bff,#0056b3);
     color: white;
-    text-align: right;
+    margin-left: auto;
 }
 /*
 .sender {

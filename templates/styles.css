@@ -3,7 +3,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     /* 采用渐变的背景色 */
-    background: linear-gradient(135deg, #4ec854 0%, #1c44e3 100%);
+    background: linear-gradient(135deg, #1cb7e1 0%, #0bd118 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -76,7 +76,7 @@ body {
         transform: translateY(10px);
      }
      to{
-        opacity: 100;
+        opacity: 1;
         transform: translateY(0);
      }
 }
@@ -108,19 +108,22 @@ body {
     color: white;
     margin-left: auto;
 }
-/*
-.sender {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-} */
 
-/* 输入区域
+.sender {
+    font-weight: 600;
+    font-size: 0.8em;
+    margin-bottom: 4px;
+    opacity: 0.8;
+}
+
+/* 输入区域 */
 #input-area {
+    padding: 20px;
+    background: white;
+    border-top: 1px solid #e9ecef;
     display: flex;
-    align-items: center;
-    padding: 10px 20px;
-} */
+    
+}
 
 /* #user-input {
     flex: 1;

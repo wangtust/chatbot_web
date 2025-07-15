@@ -187,4 +187,32 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(184, 191, 199, 0.4);
 }
-
+@media (max-width:768px){
+    body{
+        padding: 10px;
+    }
+    #chat-container{
+        height: 90vh;
+        border-radius: 10px;
+    }
+    .msg-content{
+        max-width: 85%;
+    }
+    #input-area{
+        padding: 15px;
+        flex-direction: column;
+        gap:10px;
+    }
+    #user-input{
+        width: 90%;
+    }
+    .button-group{
+        display: flex;
+        gap: 10px;
+        width: 100%;
+    }
+    #send-btn,
+    #clear-btn{
+        flex: 1;
+    }
+}

@@ -53,10 +53,11 @@ body {
     flex: 1;
     /* 自动拓展填充剩余空间 */
     overflow-y: auto;
-    padding: 20px;
     background: #f8f9fa;
     min-height: 300px;
+    padding: 10px ; 
 }
+
 /* 消息气泡样式 */
 .msg {
     margin: 15px 0;

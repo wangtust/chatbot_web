@@ -7,11 +7,9 @@ let isWaiting = false;
 document.addEventListener('DOMContentLoaded',function(){
     loadConfig();
 
-    //回车发送信息
-    document.getElementById('user-input').addEventListener('keypress',function(e){
-        if(e.key == 'Enter' &&!e.shiftKey){
-            //阻止默认的换行行为
-
+    //回车发送信息（使用 keydown 以兼容更多浏览器）
+    document.getElementById('user-input').addEventListener('keydown', function(e){
+        if(e.key === 'Enter' && !e.shiftKey){
             e.preventDefault();
             sendMessage();
         }
@@ -95,53 +93,72 @@ function sendMessage(){
         }
         setWaiting(false);
        })
+
+       //进行错误处理（网络，什么的出错就会报错，就会进入.catch(···)中）
        .catch(err =>{
+        //打印错误信息到控制台
           console.error('发送消息失败',err);
           loadingMsg.remove();
+          //显示友好的错误提示信息
           addMessage("系统","抱歉，网络出现问题，请稍后再试","bot error");
+          //恢复按钮和输入框状态
           setWaiting(false);
        });
+    }
+function addMessage(sender,text,cls){
+        const msgDiv = document.createElement("div");
+        msgDiv.className = "msg " + cls;
 
+        const contentDiv = document.createElement("div");
+-        contentDiv,className = "msg-content" + (cls.includes('error') ? 'error':'');
+        contentDiv.className = "msg-content" + (cls.includes('error') ? ' error':'');
+
+        const senderDiv=document.createElement("div");
+        senderDiv.className="sender";
+        senderDiv.textContent=sender;
+
+        const textDiv=document.createElement("div");
+        textDiv.innerHTML=text;
+
+        contentDiv.appendChild(senderDiv);
+        contentDiv.appendChild(textDiv);
+        msgDiv.appendChild(contentDiv);
+
+        const messagesContainer=document.getElementById("messages");
+        messagesContainer.appendChild(msgDiv);
+
+        //滚动到底部
+        messagesContainer.scrollTop=messagesContainer.scrollHeight;
+
+        //返回创建的消息元素
+        return msgDiv;
 }
-// async function sendMessage() {
-//   const input = document.getElementById('user-input');
-//   const txt = input.value.trim();
-//   if (!txt) return;
-//   appendMessage('user', txt);
-//   input.value = '';
-//   const res = await fetch('/api/chat', {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({ message: txt })
-//   });
-//   const { reply } = await res.json();
-//   appendMessage('bot', reply);
-// }
 
-// function appendMessage(role, text) {
-//   const div = document.createElement('div');
-//   div.className = `msg ${role}`;
-//   div.innerHTML = `
-//     <div class="msg-content">
-//       <div class="sender">${role==='bot'?'AI助手':'我'}</div>
-//       ${text}
-//     </div>`;
-//   document.getElementById('messages').appendChild(div);
-//   document.getElementById('messages').scrollTop = 1e9;
-// }
+function setWaiting(waiting){
+    //设置全局变量isWaiting
+    isWaiting=waiting;
 
-// function clearChat() {
-//   document.getElementById('messages').innerHTML = '';
-// }
+    //获取DOM元素
+    const sendBtn=document.getElementById('send-btn');
+    const input = document.getElementById("user-input");
+    
+    //设置禁用状态
+    sendBtn.disabled=waiting;
+    input.disabled=waiting;
 
-// document.getElementById('send-btn').addEventListener('click', sendMessage);
-// document.getElementById('clear-btn').addEventListener('click', clearChat);
+    if(waiting){
+        sendBtn.textContent='发送中···';
+    } else{
+        sendBtn.textContent='发送';
+        input.focus();
+    }
+}
 
-// const inputEl = document.getElementById('user-input');
-// inputEl.addEventListener('keydown', function(e) {
-//   // e.key 也可以用 e.keyCode === 13 检测回车
-//   if (e.key === 'Enter') {
-//     e.preventDefault();      // 阻止默认换行或表单提交
-//     sendMessage();           // 调用发送函数
-//   }
-// });
+// 添加清空聊天函数，以配合 HTML 中 clear-btn
+function clearChat(){
+    // 询问是否确认清空
+    if (!confirm("确定要清空聊天记录吗？")) return;
+    document.getElementById('messages').innerHTML = '';
+    // 同时清空本地对话历史
+    conversationHistory = [];
+}

@@ -122,33 +122,69 @@ body {
     background: white;
     border-top: 1px solid #e9ecef;
     display: flex;
+    gap: 10px;
+    align-items: center;
     
 }
 
-/* #user-input {
+#user-input {
     flex: 1;
-    padding: 10px;
-    border: 1px solid #42a5f5;
-    border-radius: 10px;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 15px;
     font-size: 14px;
-} */
+    /* 禁用浏览器默认的聚焦轮廓线，通常是蓝色的虚线框 */
+    outline: none;
+    transition: all 0.3s ease;
 
-/* #send-btn {
-    background-color: #42a5f5;
+}
+
+/* 聚焦状态样式 */
+#user-input:focus{
+    border-color: #1308ec;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+#send-btn,
+#clear-btn {
+    background-color: #98989b;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
+    padding: 12px 20px;
+    border-radius: 25px;
     margin-left: 10px;
+    /* 当鼠标悬停在按钮显示手指形状，表示该元素可以点击 */
     cursor: pointer;
-} */
-
-/* #clear-btn {
-    background-color: #95a5a6;
+    transition: all 0.5s ease;
+    min-width: 80px;
+}
+/* 发送按钮样式 */
+#send-btn{
+    background: linear-gradient(135deg,#007bff,#0056b3);
     color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    margin-left: 10px;
-    cursor: pointer;
-} */
+}
+
+/* 悬停状态 */
+#send-btn:hover:not(:disabled){
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+}
+/* 禁用状态 */
+#send-btn:disabled{
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 清空按钮样式 */
+#clear-btn{
+    background: #6c757d;
+    color: white;
+}
+
+/* 悬停状态 */
+#clear-btn:hover{
+    background: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(184, 191, 199, 0.4);
+}
+

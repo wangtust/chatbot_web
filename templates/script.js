@@ -6,6 +6,20 @@ let isWaiting = false;
 //页面加载完成后获取配置信息
 document.addEventListener('DOMContentLoaded',function(){
     loadConfig();
+    // 加载历史消息
+    fetch('/history')
+      .then(res => res.json())
+      .then(history => {
+        history.forEach(msg => {
+          // 渲染历史消息
+          const senderText = msg.role === 'bot' ? 'AI助手' : '你';
+          const cls = msg.role === 'bot' ? 'bot' : 'user';
+          addMessage(senderText, msg.content, cls);
+          // 初始化对话上下文
+          conversationHistory.push({ role: msg.role, content: msg.content });
+        });
+      })
+      .catch(err => console.error('加载历史消息失败', err));
 
     //回车发送信息（使用 keydown 以兼容更多浏览器）
     document.getElementById('user-input').addEventListener('keydown', function(e){
@@ -110,7 +124,6 @@ function addMessage(sender,text,cls){
         msgDiv.className = "msg " + cls;
 
         const contentDiv = document.createElement("div");
--        contentDiv,className = "msg-content" + (cls.includes('error') ? 'error':'');
         contentDiv.className = "msg-content" + (cls.includes('error') ? ' error':'');
 
         const senderDiv=document.createElement("div");
@@ -127,10 +140,14 @@ function addMessage(sender,text,cls){
         const messagesContainer=document.getElementById("messages");
         messagesContainer.appendChild(msgDiv);
 
-        //滚动到底部
+        // 滚动到底部
         messagesContainer.scrollTop=messagesContainer.scrollHeight;
+        // 对消息内的代码块执行高亮
+        msgDiv.querySelectorAll('pre code').forEach(block => {
+            hljs.highlightElement(block);
+        });
 
-        //返回创建的消息元素
+        // 返回创建的消息元素
         return msgDiv;
 }
 

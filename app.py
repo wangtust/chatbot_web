@@ -47,10 +47,9 @@ def api_chat():
     user_msg = Message(role='user', content=user_message)
     db.session.add(user_msg)
     db.session.commit()
-    # 构造对话列表：先是历史，再追加当前用户输入
+    # 构造对话列表：历史记录 + 当前用户输入
     messages = []
     for msg in history:
-        # msg 应有 role 和 content
         messages.append({"role": msg.get("role"), "content": msg.get("content")})
     messages.append({"role": "user", "content": user_message})
 
